@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "808590235793",
+    "firebase_url": "https://mi-cuadrante-fb8fb.firebaseio.com",
+    "project_id": "mi-cuadrante-fb8fb",
+    "storage_bucket": "mi-cuadrante-fb8fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808590235793:android:fdc0e7a62024c2ad55c730",
+        "android_client_info": {
+          "package_name": "com.example.cuadrante"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808590235793-vhe60flreu0b3td13fgl1t1a4615monb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr4xj6i7a37yPhliLay6KQW1EqvRNLfq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808590235793-vhe60flreu0b3td13fgl1t1a4615monb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

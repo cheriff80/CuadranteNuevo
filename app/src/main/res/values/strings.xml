@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Cuadrante</string>
+    <string name="email">Introduzca e-mail</string>
+    <string name="Email">E-mail:</string>
+    <string name="Password">Password:</string>
+    <string name="iPassword">Introduzca contraseña</string>
+    <string name="Registrar">Registro</string>
+    <string name="Inicio">INICIO</string>
+    <string name="nombre">Nombre:</string>
+    <string name="Apellidos">Apellidos:</string>
+    <string name="Telefono">Teléfono:</string>
+    <string name="Alias">Alias:</string>
+    <string name="RepitePassword">Repita el password</string>
+    <string name="Registro">REGISTRO</string>
+
+</resources>
