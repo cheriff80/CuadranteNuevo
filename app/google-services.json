@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:808590235793:android:fdc0e7a62024c2ad55c730",
+        "mobilesdk_app_id": "1:808590235793:android:fcba3b71e0d3626b55c730",
         "android_client_info": {
           "package_name": "com.example.cuadrante"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "808590235793-4t3vf2u141em6k6c6ihip81m2jjk7kli.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cuadrante",
+            "certificate_hash": "60a2cfdbaf1983d8122e773ee350ce0f17d98044"
+          }
+        },
         {
           "client_id": "808590235793-vhe60flreu0b3td13fgl1t1a4615monb.apps.googleusercontent.com",
           "client_type": 3

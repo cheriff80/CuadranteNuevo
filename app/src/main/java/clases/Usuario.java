@@ -22,6 +22,13 @@ public class Usuario {
         this.id = id;
     }
 
+    public Usuario(String nombre, String email, String numTelefono, String alias) {
+        this.nombre = nombre;
+        this.email = email;
+        this.numTelefono = numTelefono;
+        this.alias = alias;
+    }
+
     public String getPassword() {
         return password;
     }
