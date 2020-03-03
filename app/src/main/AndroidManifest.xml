@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".pagina_principal"
+            android:name=".Pagina_principal"
             android:label="@string/title_activity_pagina_principal"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Registro" />

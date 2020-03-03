@@ -1,8 +1,5 @@
 package com.example.cuadrante;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -101,7 +101,7 @@ public class PantallaAutenticacion extends AppCompatActivity implements View.OnC
                     //usuario autenticado y cargamos la info del usuario
                     Log.d(TAG, "signInWithEmail: success");
                     FirebaseUser usuario = mAuth.getCurrentUser();
-                    startActivity(new Intent(PantallaAutenticacion.this, pagina_principal.class));
+                    startActivity(new Intent(PantallaAutenticacion.this, Pagina_principal.class));
 
                 }else{
                     //si falla la autenticación mostramos mensaje al usuario
@@ -155,7 +155,7 @@ public class PantallaAutenticacion extends AppCompatActivity implements View.OnC
 
         if(i == R.id.btInicio){
             inicio(mEmail.getText().toString(), mPassword.getText().toString());
-            Intent intent = new Intent(PantallaAutenticacion.this,pagina_principal.class);
+            Intent intent = new Intent(PantallaAutenticacion.this, Pagina_principal.class);
             startActivity(intent);
         }
 

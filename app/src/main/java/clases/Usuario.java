@@ -1,33 +1,33 @@
 package clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
 
     private String nombre;
+    private String apellidos;
     private String password;
     private String email;
     private String numTelefono;
     private String alias;
-    private int id;
+    private String id;
+    private List<Companiero> listaCompis;
 
+
+    public Usuario( String alias, String apellidos, String id,String nombre, String numTelefono) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.numTelefono = numTelefono;
+        this.alias = alias;
+        this.id = id;
+        this.listaCompis = new ArrayList<>();
+    }
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String password, String email, String numTelefono, String alias, int id) {
-        this.nombre = nombre;
-        this.password = password;
-        this.email = email;
-        this.numTelefono = numTelefono;
-        this.alias = alias;
-        this.id = id;
-    }
 
-    public Usuario(String nombre, String email, String numTelefono, String alias) {
-        this.nombre = nombre;
-        this.email = email;
-        this.numTelefono = numTelefono;
-        this.alias = alias;
-    }
 
     public String getPassword() {
         return password;
@@ -69,11 +69,27 @@ public class Usuario {
         this.alias = alias;
     }
 
-    public int getId() {
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public List<Companiero> getListaCompis() {
+        return listaCompis;
+    }
+
+    public void setListaCompis(List<Companiero> listaCompis) {
+        this.listaCompis = listaCompis;
     }
 }

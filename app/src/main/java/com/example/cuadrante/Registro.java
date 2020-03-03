@@ -1,8 +1,5 @@
 package com.example.cuadrante;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,21 +11,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import clases.Usuario;
 
@@ -91,6 +83,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+
     }
 
     /**
@@ -118,13 +111,18 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                         if(task.isSuccessful()){
                             barraProgreso.setVisibility(View.INVISIBLE);
                             Log.d(TAG,"creadoUsuario");
+
+                            //Obtengo el usuario de Firebase
                             FirebaseUser usuario = mAuth.getCurrentUser();
                             emailVerificacion(usuario);
+
                             //updateUI(usuario);
                             barraProgreso.setVisibility(View.INVISIBLE);
-                            aniadirUsuario(usuario.getUid(),etNombre.getText().toString(),
-                                    etApellidos.getText().toString(),etNumTelefono.getText().toString(),
-                                    etAlias.getText().toString(),db);
+                            aniadirUsuario(etAlias.getText().toString(),
+                                    etApellidos.getText().toString(),
+                                    usuario.getUid(),etNombre.getText().toString(),
+                                    etNumTelefono.getText().toString(),
+                                    db,usuario);
                             //db.collection("usuarios").add(user);
                             Toast.makeText(Registro.this, "Usuario creado, verifique" +
                                     " correo enviado.",Toast.LENGTH_LONG);
@@ -132,6 +130,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                         }else{
                             Log.w(TAG,"entrada con email: fallo", task.getException());
                             Toast.makeText(Registro.this, "Error en la ejecución",Toast.LENGTH_LONG);
+                            return;
                         }
 
                     }
@@ -226,27 +225,42 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
     }
 
     /**
-     *
+     * Añade usuario a Clod Firestore, lo agrego como una clase usuario y el documento para
+     * distinguirlo de los demás me lo dará el número de teléfono
      * @param id
      * @param nombre
      * @param apellidos
      * @param numTelefono
      * @param alias
      */
-    public void aniadirUsuario(String id, String nombre,String apellidos, String numTelefono
-    , String alias, FirebaseFirestore db){
+    public void aniadirUsuario(String alias, String apellidos, String id, String nombre
+    , String numTelefono, FirebaseFirestore db,FirebaseUser user){
 
-        // Create a new user with a first and last name
+        Usuario usuario = new Usuario(alias, apellidos, id,nombre,numTelefono);
+         final String idMetodo = id;
+
+
+
+        /** Create a new user with a first and last name
         Map<String, Object> usuario = new HashMap<>();
         usuario.put("nombre", nombre);
         usuario.put("id", id);
         usuario.put("apellidos", apellidos);
         usuario.put("numTelefono", numTelefono);
         usuario.put("alias", alias);
+         **/
 
         // Add a new document with a generated ID
-        db.collection("users")
-                .add(usuario)
+        db.collection("users").document(id)
+                .set(usuario).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                       @Override
+                                                       public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG,"usuario "+idMetodo+" incluído");
+                                                       }
+                                                   }
+        );
+
+                /**
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -258,7 +272,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
                     }
-                });
+                });**/
     }
 
 
@@ -277,8 +291,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
             crearCuenta(etEmail.getText().toString(),etPassword.getText().toString());
 
 
-        }
-        if(i == R.id.btInicio){
+        }if(i == R.id.btInicio){
             startActivity(intent);
         }
     }
