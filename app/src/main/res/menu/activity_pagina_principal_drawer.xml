@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/aniadir_companiero"
+            android:icon="@drawable/ic_person_add_black_24dp"
+            android:title="@string/aniadir_companiero" />
+        <item
+            android:id="@+id/eliminar_companiero"
+            android:icon="@drawable/ic_person_outline_black_24dp"
+            android:title="@string/eliminar_companiero" />
+        <item
+            android:id="@+id/solicitar_dia"
+            android:icon="@drawable/ic_alarm_add_black_24dp"
+            android:title="@string/solicitar_dia" />
+        <item
+            android:id="@+id/devolver_dia"
+            android:icon="@drawable/ic_alarm_off_black_24dp"
+            android:title="@string/devolver_dia" />
+    </group>
+
+    <item android:title="Info Personal">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_share" />
+
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.cuadrante.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_aniadir_companiero"
+            app:destination="@id/aniadir_companiero" />
+        <action
+            android:id="@+id/action_nav_home_to_eliminar_companiero"
+            app:destination="@id/eliminar_companiero" />
+        <action
+            android:id="@+id/action_nav_home_to_devolver_dia"
+            app:destination="@id/devolver_dia" />
+        <action
+            android:id="@+id/action_nav_home_to_solicitar_dia"
+            app:destination="@id/solicitar_dia" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/aniadir_companiero"
+        android:name="fragmentos_navegacion.aniadir_companiero.aniadir_companiero"
+        android:label="@string/aniadir_companiero"
+        tools:layout="@layout/aniadir_companiero_fragment" />
+
+    <fragment
+        android:id="@+id/eliminar_companiero"
+        android:name="fragmentos_navegacion.eliminar_companiero.eliminar_companiero"
+        android:label="@string/eliminar_companiero"
+        tools:layout="@layout/eliminar_companiero_fragment" />
+
+    <fragment
+        android:id="@+id/solicitar_dia"
+        android:name="fragmentos_navegacion.solicitar_dia.Solicitar_dia"
+        android:label="@string/solicitar_dia"
+        tools:layout="@layout/solicitar_dia_fragment" />
+
+    <fragment
+        android:id="@+id/devolver_dia"
+        android:name="fragmentos_navegacion.devolver_dia.devolver_dia"
+        android:label="@string/devolver_dia"
+        tools:layout="@layout/devolver_dia_fragment" />
+</navigation>
