@@ -1,6 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/aniadir_companiero"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragmentos_navegacion.aniadir_companiero.aniadir_companiero"/>
+    tools:context="fragmentos_navegacion.aniadir_companiero.Aniadir_companiero">
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/Titulo"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.141" />
+
+    <EditText
+        android:id="@+id/etNumTelefonoCompa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/NumeroTelefono"
+        android:inputType="phone"
+        app:layout_constraintStart_toStartOf="@+id/tvTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
+
+    <ImageButton
+        android:id="@+id/ibTelefono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:src="@android:drawable/stat_sys_phone_call"
+        app:layout_constraintStart_toEndOf="@+id/etNumTelefonoCompa"
+        app:layout_constraintTop_toTopOf="@+id/etNumTelefonoCompa" />
+
+    <TextView
+        android:id="@+id/tvPerfilCompaniero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:text="@string/Perfil"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etNumTelefonoCompa"
+        app:layout_constraintTop_toBottomOf="@+id/etNumTelefonoCompa" />
+
+    <TextView
+        android:id="@+id/tvTituloNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/NombreCompa"
+        app:layout_constraintStart_toStartOf="@+id/tvPerfilCompaniero"
+        app:layout_constraintTop_toBottomOf="@+id/tvPerfilCompaniero" />
+
+    <TextView
+        android:id="@+id/tvNombreCompa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTituloNombre"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloNombre"
+        app:layout_constraintTop_toTopOf="@+id/tvTituloNombre" />
+
+    <TextView
+        android:id="@+id/tvTituloCorreo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/TituloCorreo"
+        app:layout_constraintStart_toStartOf="@+id/tvTituloNombre"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloNombre" />
+
+    <TextView
+        android:id="@+id/tvEmailCompa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTituloCorreo"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloCorreo"
+        app:layout_constraintTop_toTopOf="@+id/tvTituloCorreo"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvDatosCorrectos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/DatosCorrectos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloCorreo" />
+
+    <Button
+        android:id="@+id/btAniadirCompa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/Añadir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDatosCorrectos" />
+
+    <TextView
+        android:id="@+id/tvErrorNumTlfno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNumTelefonoCompa" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

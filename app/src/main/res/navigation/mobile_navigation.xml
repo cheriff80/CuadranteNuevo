@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/aniadir_companiero"
-        android:name="fragmentos_navegacion.aniadir_companiero.aniadir_companiero"
+        android:name="fragmentos_navegacion.aniadir_companiero.Aniadir_companiero"
         android:label="@string/aniadir_companiero"
         tools:layout="@layout/aniadir_companiero_fragment" />
 

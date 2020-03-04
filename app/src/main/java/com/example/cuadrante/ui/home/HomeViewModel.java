@@ -1,14 +1,11 @@
 package com.example.cuadrante.ui.home;
 
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import clases.Usuario;
@@ -65,36 +62,5 @@ public class HomeViewModel extends ViewModel {
         this.fa = fa;
     }
 
-    /**
-     * Entra en Cloud Firestore y obtiene el usuario a partid de su UId
-     * @return
-     */
 
-    public void obtenerUsuario() {
-
-
-        //inicio la conexión con la BBDD
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        //Obtengo el UId del Usuario de la FireBase Auth
-        FirebaseAuth fa = FirebaseAuth.getInstance();
-        String idUsuario = fa.getCurrentUser().getUid();
-
-        //Obtengo la referencia al documento
-        DocumentReference docRef = db.collection("users").document(idUsuario);
-        Log.d(TAG, "db obtenido");
-
-        if(docRef.get().isSuccessful()){
-            DocumentSnapshot documentSnapshot = docRef.get().getResult();
-            obtenerDatosUsu(documentSnapshot.toObject(Usuario.class));
-        }
-
-
-
-    }
-
-    public void obtenerDatosUsu (Usuario usu){
-
-        this.usuario = usu;
-    }
 }

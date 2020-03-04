@@ -36,6 +36,12 @@
     <string name="aniadir_companiero">Añadir compañero</string>
     <string name="eliminar_companiero">Eliminar compañero</string>
     <string name="solicitar_dia">Solicitar día</string>
+    <string name="Titulo">Introduzca el número de teléfono de su compañero:</string>
+    <string name="NumeroTelefono">número de teléfono</string>
+    <string name="Perfil">Perfil Compañero:</string>
+    <string name="NombreCompa">Nombre:</string>
+    <string name="TituloCorreo">Correo electrónico:</string>
+    <string name="DatosCorrectos">Si los datos son correctos pulse el botón añadir</string>
 
 
 </resources>
