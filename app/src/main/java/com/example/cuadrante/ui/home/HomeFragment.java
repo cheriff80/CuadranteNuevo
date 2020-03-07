@@ -1,36 +1,45 @@
 package com.example.cuadrante.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.cuadrante.InterfaceComunnication;
 import com.example.cuadrante.R;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import clases.Usuario;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private TextView tvNombre,tvNumTelefono;
-    private Usuario usuario;
+    private Usuario user;
     private static final String TAG = "EmailPassword" ;
+    private InterfaceComunnication comunnication;
 
 
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        comunnication = (InterfaceComunnication) context;
+
+
+
+
+    }
 
 
     @Override
@@ -38,31 +47,34 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
 
-
-
-
-
-
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
-        //con la actividad creada busco el nombre
-        tvNombre = getActivity().findViewById(R.id.tvUsuario);
-        tvNumTelefono = getActivity().findViewById(R.id.tvnumRelefono);
+
+
+
 
         obtenerUsuario();
 
 
+
+
     }
+
+
 
     @Override
     public void onStart() {
         super.onStart();
 
+
+        this.user = comunnication.pasarUsuarioHome(user);
 
 
     }
@@ -70,6 +82,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+
 
 
     }
@@ -82,39 +96,34 @@ public class HomeFragment extends Fragment {
 
         //inicio la conexión con la BBDD
         FirebaseFirestore.getInstance()
-                .collection("users").document(idUsuario).get().continueWithTask(new Continuation<DocumentSnapshot, Task<DocumentSnapshot>>() {
+                .collection("users").document(idUsuario)
+                .collection("listaCompis").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public Task<DocumentSnapshot> then(@NonNull Task<DocumentSnapshot> task) throws Exception {
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                Task<DocumentSnapshot> busqueda = task;
-                if(task.isComplete()){
-                    return task;}
-                else{
-                    task.getException();
+
+
+                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
+
+
                 }
-                return task;
-
-            }
-        }).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                Usuario usuario = documentSnapshot.toObject(Usuario.class);
-
-                HomeFragment.this.setUsuario(usuario);
-
-
-                obtenerDatosUsu(usuario);
-
-                obtenerDatosUsu(documentSnapshot.toObject(Usuario.class));
             }
         });
+
+
+
+    }
+
+    public void nuevoUsuario (String alias, String apellidos, String nombre, String id, String numTelefono){
+
+
 
 
     }
 
 
     public void obtenerDatosUsu (Usuario usu){
+
 
 
     }
@@ -124,11 +133,11 @@ public class HomeFragment extends Fragment {
         Log.d(TAG,mensaje);
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUser() {
+        return user;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUser(Usuario user) {
+        this.user = user;
     }
 }
