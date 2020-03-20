@@ -2,56 +2,83 @@ package com.example.cuadrante;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.cuadrante.ui.home.HomeFragment;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import clases.Usuario;
+import viewModel.UserViewModel;
 
-public class Pagina_principal extends AppCompatActivity implements InterfaceComunnication {
+public class Pagina_principal extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private HomeFragment homeFragment;
     private Usuario user;
+    private TextView tv_NavNombre, tv_NavTelefono;
+
+    private UserViewModel userViewModel;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagina_principal);
 
-        obtenerUsuario();
+        user = (Usuario) getIntent().getSerializableExtra("usuario");
+
+
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
+
+
+        userViewModel.loadUser(user);
+
 
         //método que incluye la navegación
         barraNavegacion();
-
-
-
-
 
     }
 
     @Override
     protected void onStart() {
+
+
         super.onStart();
 
-        pasarUsuarioHome(user);
+        user = (Usuario) getIntent().getSerializableExtra("usuario");
+
+
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
+        userViewModel.loadUser(user);
+
+
+        if(user != null){
+
+            //cambio los Text Views de al barra de navegación
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            tv_NavNombre = navigationView.getHeaderView(0).findViewById(R.id.tvNavNombre);
+            tv_NavTelefono = navigationView.getHeaderView(0).findViewById(R.id.tvNavTelefono);
+            //String nombre_apellidos = user.getNombre()+" "+user.getApellidos();
+            tv_NavNombre.setText(user.getNombre()+" "+user.getApellidos());
+            tv_NavTelefono.setText(user.getNumTelefono());
+        }
 
     }
+
+
+
 
     /**
      * Infla el menu
@@ -85,6 +112,7 @@ public class Pagina_principal extends AppCompatActivity implements InterfaceComu
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -98,65 +126,9 @@ public class Pagina_principal extends AppCompatActivity implements InterfaceComu
 
     }
 
-    public Usuario getUser() {
-        return user;
-    }
-
-    public void setUser(Usuario user) {
-        this.user = user;
-    }
-
-    @Override
-    public Usuario pasarUsuarioHome(Usuario user) {
-
-        return user;
-    }
-
-    public void obtenerUsuario() {
-
-        //Obtengo el UId del Usuario de la FireBase Auth
-        FirebaseAuth fa = FirebaseAuth.getInstance();
-        String idUsuario = fa.getCurrentUser().getUid();
-
-        //inicio la conexión con la BBDD
-        FirebaseFirestore.getInstance()
-                .collection("users").document(idUsuario).get().continueWithTask(new Continuation<DocumentSnapshot, Task<DocumentSnapshot>>() {
-            @Override
-            public Task<DocumentSnapshot> then(@NonNull Task<DocumentSnapshot> task) throws Exception {
-
-                Task<DocumentSnapshot> busqueda = task;
-                if(task.isComplete()){
-                    return task;}
-                else{
-                    task.getException();
-                }
-                return task;
-
-            }
-        }).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
 
 
-                Usuario user = documentSnapshot.toObject(Usuario.class);
-
-                obtenerDatosUsu(user);
 
 
-
-                pasarUsuarioHome(user);
-
-
-            }
-        });
-
-
-
-    }
-    public void obtenerDatosUsu (Usuario usu){
-
-        this.user = usu;
-
-    }
 }

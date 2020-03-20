@@ -1,9 +1,10 @@
 package clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String nombre;
     private String apellidos;
@@ -12,7 +13,8 @@ public class Usuario {
     private String numTelefono;
     private String alias;
     private String id;
-    private List<Companiero> listaCompis;
+    private List<Companiero> listaCompas;
+
 
 
     public Usuario( String alias, String apellidos, String id,String nombre, String numTelefono) {
@@ -21,7 +23,8 @@ public class Usuario {
         this.numTelefono = numTelefono;
         this.alias = alias;
         this.id = id;
-        this.listaCompis = new ArrayList<>();
+        listaCompas = new ArrayList<>();
+
     }
 
     public Usuario() {
@@ -85,11 +88,11 @@ public class Usuario {
         this.id = id;
     }
 
-    public List<Companiero> getListaCompis() {
-        return listaCompis;
+    public List<Companiero> getListaCompas() {
+        return listaCompas;
     }
 
-    public void setListaCompis(List<Companiero> listaCompis) {
-        this.listaCompis = listaCompis;
+    public void setListaCompas(List<Companiero> listaCompas) {
+        this.listaCompas = listaCompas;
     }
 }

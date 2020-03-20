@@ -44,7 +44,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     //Usuario
-    Usuario user;
+    private Usuario usuario;
 
 
 
@@ -68,7 +68,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
         btInicio=findViewById(R.id.btInicio);
 
         btRegistro.setOnClickListener(this);
-        btInicio.setOnClickListener(this);
+
 
         barraProgreso = findViewById(R.id.progressBar);
 
@@ -236,7 +236,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
     public void aniadirUsuario(String alias, String apellidos, String id, String nombre
     , String numTelefono, FirebaseFirestore db,FirebaseUser user){
 
-        Usuario usuario = new Usuario(alias, apellidos, id,nombre,numTelefono);
+        usuario = new Usuario(alias, apellidos, id,nombre,numTelefono);
          final String idMetodo = id;
 
 
@@ -256,6 +256,8 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                                                        @Override
                                                        public void onSuccess(Void aVoid) {
                                                         Log.d(TAG,"usuario "+idMetodo+" incluído");
+                                                           Intent intent = new Intent(Registro.this,Pantalla_inicio.class);
+                                                           startActivity(intent);
                                                        }
                                                    }
         );
@@ -284,16 +286,20 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent(Registro.this,PantallaAutenticacion.class);
+
 
         int i = v.getId();
         if(i == R.id.btRegistro){
             crearCuenta(etEmail.getText().toString(),etPassword.getText().toString());
 
-
-        }if(i == R.id.btInicio){
-            startActivity(intent);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Registro.this, Pantalla_inicio.class);
+        startActivity(intent);
     }
 }
 

@@ -4,6 +4,7 @@ public class DiaUsuario {
 
     private String mensage;
 
+
     public DiaUsuario(){}
 
     public DiaUsuario(String mensage) {
@@ -17,4 +18,8 @@ public class DiaUsuario {
     public void setMensage(String mensage) {
         this.mensage = mensage;
     }
+
+
+
+
 }

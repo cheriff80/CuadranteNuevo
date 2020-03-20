@@ -1,7 +1,8 @@
 package fragmentos_navegacion.aniadir_companiero;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +15,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.cuadrante.Pagina_principal;
 import com.example.cuadrante.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import clases.Companiero;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
-public class Aniadir_companiero extends Fragment {
+import clases.Companiero;
+import clases.Usuario;
+import viewModel.UserViewModel;
+
+public class Aniadir_companiero extends Fragment implements View.OnClickListener {
 
     private TextView tvNombreCompa,tvEmailCompa,tvErrorTlfno;
     private EditText numTlfnoCompa;
@@ -39,18 +44,41 @@ public class Aniadir_companiero extends Fragment {
     private boolean compa_en_firebase= false;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
     private Companiero companiero;
+    private Usuario usuario;
+
+    //parte UsuarioViewModel
+    private UserViewModel userViewModel;
+
+
 
     private AniadirCompanieroViewModel mViewModel;
 
-    public static Aniadir_companiero newInstance() {
-        return new Aniadir_companiero();
+    private CountDownLatch countDownLatch= new CountDownLatch(1);
+
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.aniadir_companiero_fragment, container, false);
+
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
 
     }
@@ -61,14 +89,22 @@ public class Aniadir_companiero extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(AniadirCompanieroViewModel.class);
 
         //declaro las vistas
-        numTlfnoCompa = (EditText) getActivity().findViewById(R.id.etNumTelefonoCompa);
-        tvNombreCompa = (TextView) getActivity().findViewById(R.id.tvNombreCompa);
-        tvEmailCompa = (TextView) getActivity().findViewById(R.id.tvEmailCompa);
-        tvErrorTlfno = (TextView) getActivity().findViewById(R.id.tvErrorNumTlfno);
+        numTlfnoCompa = getActivity().findViewById(R.id.etNumTelefonoCompa);
+        tvNombreCompa = getActivity().findViewById(R.id.tvNombreCompa);
+        tvEmailCompa = getActivity().findViewById(R.id.tvEmailCompa);
+        tvErrorTlfno = getActivity().findViewById(R.id.tvErrorNumTlfno);
 
         //botones
-        ibAniadir = (Button) getActivity().findViewById(R.id.btAniadirCompa);
-        telefono = (ImageButton) getActivity().findViewById(R.id.ibTelefono);
+        ibAniadir = getActivity().findViewById(R.id.bt_ac_aniadir_compa);
+        telefono = getActivity().findViewById(R.id.ibTelefono);
+
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         //inicio la conexíon con firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
@@ -76,60 +112,21 @@ public class Aniadir_companiero extends Fragment {
         //inicio la conexión con la BBDD
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        //creo la función cuandno apreta al botón del teléfono
-        telefono.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
 
-                tvErrorTlfno.setText("");
+        usuario = userViewModel.getUser();
 
-                if(!numTlfnoCompa.getText().toString().isEmpty() ){
+        firebaseUser = firebaseAuth.getCurrentUser();
 
-                    //busco con el número introducido un documento en Fibase con ese número
-                    comprobarTelefono(numTlfnoCompa.getText().toString());
+        detenerHilo(1000);
 
+        //asigno el Onclick a los botones
+        ibAniadir.setOnClickListener(this);
+        telefono.setOnClickListener(this);
 
-                }else{
-
-                    errorNumTlfno("Debe incluir un número de teléfono");
-                    Toast.makeText(getActivity(), "Introduzca un número de teléfono", Toast.LENGTH_LONG).show();
-
-                }
-            }
-        });
-
-        //función para añadir el compañero a Firestore
-        ibAniadir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (compa_en_firebase) {
-
-                    firebaseFirestore.collection("users")
-                            .document(firebaseAuth.getCurrentUser().getUid())
-                            .collection("listaCompis").add(companiero).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-
-                            Toast.makeText(getActivity(), "Compañero añadido"
-                                    , Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(getContext(), Pagina_principal.class);
-                            startActivity(intent);
-                        }
-                    });
-                }
-                else{
-
-                    Toast.makeText(getActivity(), "No se puede añadir compañero"
-                            , Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-
-        });
     }
+
+
 
     public void comprobarTelefono(String numTelefono){
 
@@ -144,8 +141,10 @@ public class Aniadir_companiero extends Fragment {
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot documento : task.getResult()){
 
-                        Companiero compi = documento.toObject(Companiero.class);
+                        Companiero compa = documento.toObject(Companiero.class);
 
+                        Companiero compi = new Companiero(compa.getAlias(),compa.getApellidos()
+                        ,compa.getId(),compa.getNombre(),compa.getNumTelefono());
 
                         rellenarCamposNombreEmail(compi.getNombre(),compi.getAlias(),compi);
 
@@ -181,7 +180,7 @@ public class Aniadir_companiero extends Fragment {
 
     public void rellenarCamposNombreEmail (String nombre, String email, Companiero compa){
 
-        this.companiero = compa;
+        companiero = compa;
 
         tvNombreCompa.setText(nombre);
         tvEmailCompa.setText(email);
@@ -189,8 +188,125 @@ public class Aniadir_companiero extends Fragment {
         compa_en_firebase = true;
     }
 
+    public void click_boton_tlfno(){
 
 
+
+                tvErrorTlfno.setText("");
+
+                if(!numTlfnoCompa.getText().toString().isEmpty() ){
+
+                    //busco con el número introducido un documento en Fibase con ese número
+                    comprobarTelefono(numTlfnoCompa.getText().toString());
+
+
+                }else{
+
+                    errorNumTlfno("Debe incluir un número de teléfono");
+                    Toast.makeText(getActivity(), "Introduzca un número de teléfono", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+    public void aniadir_compa(){
+
+        final String TAG = "Cuadrante";
+
+        //[START inicio_autenticacion]
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        //[END autenticacion]
+
+
+
+
+        if (companiero != null) {
+
+            if (usuario.getListaCompas().size() == 0) {
+                //añado el compañero a la lista de compañeros
+                usuario.getListaCompas().add(companiero);
+
+
+                //paso el usuario con la nueva lista de compañeros a la base de datos
+                firebaseFirestore.collection("users").document(firebaseUser.getUid())
+                        .set(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d(TAG, "usuario incluído");
+                        Toast.makeText(getActivity(), "Compañero añadido", Toast.LENGTH_LONG).show();
+                        FragmentManager fragmentManager = getParentFragmentManager();
+                        fragmentManager.beginTransaction();
+                        fragmentManager.popBackStack();
+
+
+                    }
+                });
+
+
+            } else {
+                for (Companiero companiero_lista : usuario.getListaCompas()) {
+                    if (!companiero_lista.getNumTelefono().equals(companiero.getNumTelefono())) {
+                        //añado el compañero a la lista de compañeros
+                        usuario.getListaCompas().add(companiero);
+
+                        //lo cargo al userViewModel
+                        userViewModel.loadUser(usuario);
+
+                        //paso el usuario con la nueva lista de compañeros a la base de datos
+                        firebaseFirestore.collection("users").document(firebaseUser.getUid())
+                                .set(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d(TAG, "usuario incluído");
+                                Toast.makeText(getActivity(), "Compañero añadido", Toast.LENGTH_LONG).show();
+                                FragmentManager fragmentManager = getParentFragmentManager();
+                                fragmentManager.beginTransaction();
+                                fragmentManager.popBackStack();
+                            }
+                        });
+
+
+                    } else {
+                        Toast.makeText(getActivity(), "Usuario ya es compañero", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+        }else{
+
+                errorNumTlfno("Usuario no identificado");
+
+                    }
+
+        //vuelvo a la página home
+        //Intent intent = new Intent(getContext(), Pagina_principal.class);
+        //startActivity(intent);
+
+
+        }
+
+    public void detenerHilo(int milisegundos){
+
+        try {
+
+            countDownLatch.await(milisegundos, TimeUnit.MILLISECONDS);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+            int n_vista = v.getId();
+         if(n_vista == R.id.ibTelefono){
+             click_boton_tlfno();
+         }
+         if(n_vista == R.id.bt_ac_aniadir_compa){
+             aniadir_compa();
+         }
+
+    }
 }
 
 

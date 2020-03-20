@@ -29,13 +29,21 @@
         android:id="@+id/aniadir_companiero"
         android:name="fragmentos_navegacion.aniadir_companiero.Aniadir_companiero"
         android:label="@string/aniadir_companiero"
-        tools:layout="@layout/aniadir_companiero_fragment" />
+        tools:layout="@layout/aniadir_companiero_fragment" >
+        <action
+            android:id="@+id/action_aniadir_companiero_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/eliminar_companiero"
         android:name="fragmentos_navegacion.eliminar_companiero.eliminar_companiero"
         android:label="@string/eliminar_companiero"
-        tools:layout="@layout/eliminar_companiero_fragment" />
+        tools:layout="@layout/eliminar_companiero_fragment" >
+        <action
+            android:id="@+id/action_eliminar_companiero_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/solicitar_dia"

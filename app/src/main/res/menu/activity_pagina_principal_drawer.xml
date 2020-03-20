@@ -22,7 +22,7 @@
             android:title="@string/devolver_dia" />
     </group>
 
-    <item android:title="Info Personal">
+    <item android:title="Calendario">
         <menu>
             <item
                 android:id="@+id/nav_share"
