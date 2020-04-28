@@ -49,7 +49,14 @@
         android:id="@+id/solicitar_dia"
         android:name="fragmentos_navegacion.solicitar_dia.Solicitar_dia"
         android:label="@string/solicitar_dia"
-        tools:layout="@layout/solicitar_dia_fragment" />
+        tools:layout="@layout/solicitar_dia_fragment" >
+        <action
+            android:id="@+id/action_solicitar_dia_to_pedir_dia_iv_dialogo"
+            app:destination="@id/pedir_dia_iv_dialogo" />
+    </fragment>
+
+
+
 
     <fragment
         android:id="@+id/devolver_dia"

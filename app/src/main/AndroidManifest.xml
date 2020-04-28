@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog"
+            android:name=".Activity_Dialogo"></activity>
         <activity android:name=".Pantalla_inicio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +24,7 @@
             android:label="@string/title_activity_pagina_principal"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Registro" />
-        <activity android:name=".PantallaAutenticacion">
-
-        </activity>
+        <activity android:name=".PantallaAutenticacion"></activity>
     </application>
 
 </manifest>

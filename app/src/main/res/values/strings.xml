@@ -4,7 +4,6 @@
     <string name="Email">E-mail:</string>
     <string name="Password">Password:</string>
     <string name="iPassword">Introduzca contraseña</string>
-    <string name="Registrar">Registro</string>
     <string name="Inicio">INICIO</string>
     <string name="nombre">Nombre:</string>
     <string name="Apellidos">Apellidos:</string>
@@ -12,25 +11,15 @@
     <string name="Alias">Alias:</string>
     <string name="RepitePassword">Repita el password</string>
     <string name="Registro">REGISTRO</string>
-    <string name="Volver">VOLVER</string>
-    <string name="title_activity_pantalla__principal">Pantalla_Principal</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
     <string name="Añadir">Añadir</string>
-    <string name="añadir">Añadir Compañero</string>
     <string name="eliminar">Eliminar Compañero</string>
-    <string name="solicitar">Solicitar día</string>
     <string name="devolver_dia">Devolver día</string>
     <string name="title_activity_pagina_principal">pagina_principal</string>
     <string name="aniadir_companiero">Añadir compañero</string>
@@ -42,6 +31,12 @@
     <string name="NombreCompa">Nombre:</string>
     <string name="TituloCorreo">Correo electrónico:</string>
     <string name="DatosCorrectos">Si los datos son correctos pulse el botón añadir</string>
+    <string name="solicitar">Solicitar</string>
+    <string name="cancelar">Cancelar</string>
+
+
+    <string name="fecha">Fecha:</string>
+    <string name="comentario">Comentario:</string>
 
 
 </resources>

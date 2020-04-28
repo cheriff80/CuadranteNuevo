@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".Activity_Dialogo">
+
+    <TextView
+        android:id="@+id/tv_activityDialogo_fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/fecha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_activityDialogo_fechaIntroducida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:autofillHints=""
+        android:clickable="true"
+        android:ems="10"
+        android:inputType="date"
+        android:singleLine="true"
+        app:layout_constraintStart_toStartOf="@+id/et_activityDialogo_comentarioIn"
+        app:layout_constraintTop_toBottomOf="@+id/tv_activityDialogo_fecha" />
+
+    <TextView
+        android:id="@+id/tv_activityDialogo_comentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/comentario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_activityDialogo_fechaIntroducida" />
+
+    <EditText
+        android:id="@+id/et_activityDialogo_comentarioIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="200 caracteres máx..."
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:maxLength="200"
+        android:singleLine="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_activityDialogo_comentario" />
+
+    <Button
+        android:id="@+id/bt_activityDialogo_solicitar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:text="@string/solicitar"
+        app:layout_constraintEnd_toEndOf="@+id/et_activityDialogo_comentarioIn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_activityDialogo_comentarioIn"
+        android:focusable="true" />
+
+    <Button
+        android:id="@+id/bt_activityDialogo_cancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="@string/cancelar"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_activityDialogo_solicitar"
+        app:layout_constraintStart_toStartOf="@+id/et_activityDialogo_comentarioIn"
+        app:layout_constraintTop_toTopOf="@+id/bt_activityDialogo_solicitar"
+        android:focusable="true" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

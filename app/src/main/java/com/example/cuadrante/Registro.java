@@ -247,7 +247,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
         usuario.put("id", id);
         usuario.put("apellidos", apellidos);
         usuario.put("numTelefono", numTelefono);
-        usuario.put("alias", alias);
+        usuario.put("alias", alias);uilderuilderuilder
          **/
 
         // Add a new document with a generated ID
@@ -264,13 +264,13 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
                 /**
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
+                    @Overrideuilder
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
+                    }uilderuilder
                 })
                 .addOnFailureListener(new OnFailureListener() {
-                    @Override
+                    @Overrideuilderuilderuilderuilderuilder
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
                     }

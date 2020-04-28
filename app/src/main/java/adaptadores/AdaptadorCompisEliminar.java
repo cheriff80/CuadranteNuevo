@@ -22,6 +22,7 @@ implements View.OnClickListener{
 
     private List<Companiero> listaCompanieros;
     private int indice_fila;
+    private View.OnClickListener listener;
 
 
     public AdaptadorCompisEliminar (List<Companiero> listaCompanieros){
@@ -52,19 +53,7 @@ implements View.OnClickListener{
 
         }
 
-        public TextView getMtv_eliminar_telefono() {
-            return mtv_eliminar_telefono;
-        }
-
-        public void setMtv_eliminar_telefono(TextView mtv_eliminar_telefono) {
-            this.mtv_eliminar_telefono = mtv_eliminar_telefono;
-        }
     }
-
-    private View.OnClickListener listener;
-
-
-
     @NonNull
     @Override
     public AdaptadorCompisEliminar.CompisEliminarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -104,14 +93,20 @@ implements View.OnClickListener{
         }
     }
 
+    public int getIndice_fila() {
+        return indice_fila;
+    }
+
+    public void setIndice_fila(int indice_fila) {
+        this.indice_fila = indice_fila;
+    }
+
     @Override
     public int getItemCount() {
         return listaCompanieros.size();
     }
 
-    public void setItemClickListener(View.OnClickListener clickListener){
-        this.listener = clickListener;
-    }
+
 
     @Override
     public void onClick(View v) {

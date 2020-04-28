@@ -14,6 +14,7 @@ public class Usuario implements Serializable {
     private String alias;
     private String id;
     private List<Companiero> listaCompas;
+    private List<DiaUsuario> listaDias;
 
 
 
@@ -24,6 +25,7 @@ public class Usuario implements Serializable {
         this.alias = alias;
         this.id = id;
         listaCompas = new ArrayList<>();
+        listaDias = new ArrayList<>();
 
     }
 
@@ -94,5 +96,17 @@ public class Usuario implements Serializable {
 
     public void setListaCompas(List<Companiero> listaCompas) {
         this.listaCompas = listaCompas;
+    }
+
+    public void pedirDia(Companiero compi, DiaUsuario dia){
+
+        //sumo el día a los días con el compi
+        int sumatorioDias = compi.getSumatorio_dias();
+        sumatorioDias++;
+        compi.setSumatorio_dias(sumatorioDias);
+
+        //paso a true el día solicitado
+        dia.setSolicitado(true);
+
     }
 }

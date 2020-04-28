@@ -16,7 +16,10 @@ import clases.Companiero;
 
 public abstract   class AdaptadorCompis extends RecyclerView.Adapter<AdaptadorCompis.CompisViewHolder> {
 
-    List<Companiero> listaCompanieros;
+    private List<Companiero> listaCompanieros;
+
+    //UserViewModel
+
 
     public AdaptadorCompis (List<Companiero> mlistaCompanieros){
         this.listaCompanieros = mlistaCompanieros;

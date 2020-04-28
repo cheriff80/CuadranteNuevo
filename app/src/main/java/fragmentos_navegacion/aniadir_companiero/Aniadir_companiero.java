@@ -143,10 +143,14 @@ public class Aniadir_companiero extends Fragment implements View.OnClickListener
 
                         Companiero compa = documento.toObject(Companiero.class);
 
+
+
                         Companiero compi = new Companiero(compa.getAlias(),compa.getApellidos()
                         ,compa.getId(),compa.getNombre(),compa.getNumTelefono());
 
                         rellenarCamposNombreEmail(compi.getNombre(),compi.getAlias(),compi);
+
+                        tvErrorTlfno.setText("COMPAÑERO EXISTE!!!");
 
                     }
                 }else{
@@ -244,7 +248,10 @@ public class Aniadir_companiero extends Fragment implements View.OnClickListener
 
             } else {
                 for (Companiero companiero_lista : usuario.getListaCompas()) {
+
+                    //compruebo que no exista ya el compañero en la BBDD
                     if (!companiero_lista.getNumTelefono().equals(companiero.getNumTelefono())) {
+
                         //añado el compañero a la lista de compañeros
                         usuario.getListaCompas().add(companiero);
 

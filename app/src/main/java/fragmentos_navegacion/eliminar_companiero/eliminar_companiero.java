@@ -12,8 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,9 +65,6 @@ public class eliminar_companiero extends Fragment implements View.OnClickListene
         return inflater.inflate(R.layout.eliminar_companiero_fragment, container, false);
 
 
-
-
-
     }
 
 
@@ -102,20 +97,7 @@ public class eliminar_companiero extends Fragment implements View.OnClickListene
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()
                 ,LinearLayoutManager.VERTICAL,false));
 
-        adaptadorCompisEliminar.setItemClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                indice_compi_eliminar = recyclerView.getChildAdapterPosition(v);
-                Log.d("Cuadrante","posicion:" +recyclerView.getChildAdapterPosition(v));
-                Log.d("Cuadrante","posicion:" +recyclerView.getChildLayoutPosition(v));
-
-
-            }
-        });
-
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
 
@@ -146,8 +128,8 @@ public class eliminar_companiero extends Fragment implements View.OnClickListene
     public void onClick(View v) {
 
         //borro el usuario que esta en la posición
-        usuario.getListaCompas().remove(indice_compi_eliminar);
-        adaptadorCompisEliminar.notifyItemRemoved(indice_compi_eliminar);
+        usuario.getListaCompas().remove(adaptadorCompisEliminar.getIndice_fila());
+        adaptadorCompisEliminar.notifyItemRemoved(adaptadorCompisEliminar.getIndice_fila());
 
         //cambio los datos en el UserViewModel
         userViewModel.loadUser(usuario);
@@ -167,9 +149,6 @@ public class eliminar_companiero extends Fragment implements View.OnClickListene
                                                        }
                                                    }
         );
-
-
-
 
     }
 }
