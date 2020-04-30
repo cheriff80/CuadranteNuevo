@@ -32,7 +32,13 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
+    public List<DiaUsuario> getListaDias() {
+        return listaDias;
+    }
 
+    public void setListaDias(List<DiaUsuario> listaDias) {
+        this.listaDias = listaDias;
+    }
 
     public String getPassword() {
         return password;
@@ -98,15 +104,24 @@ public class Usuario implements Serializable {
         this.listaCompas = listaCompas;
     }
 
-    public void pedirDia(Companiero compi, DiaUsuario dia){
+    /**
+     * Al pedir el día incluyo otro usuario
+     * @param diaUsuario
+     * @param usuario
+     */
 
-        //sumo el día a los días con el compi
-        int sumatorioDias = compi.getSumatorio_dias();
-        sumatorioDias++;
-        compi.setSumatorio_dias(sumatorioDias);
+    public void pedir_dias(DiaUsuario diaUsuario, Usuario usuario){
 
-        //paso a true el día solicitado
-        dia.setSolicitado(true);
+        //añado a la lista de días el día
+        usuario.getListaDias().add(diaUsuario);
+
+        /**
+         * En caso de que el número de días pendientes supere diez borro el primer día solicitado
+         * de la lista
+         */
+        if(usuario.getListaDias().size() >= 10){
+            usuario.getListaDias().remove(usuario.getListaDias().size());
+        }
 
     }
 }

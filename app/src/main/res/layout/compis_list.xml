@@ -12,20 +12,33 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/linear_home_foto"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:background="@android:drawable/ic_menu_my_calendar"
+            android:clickable="false"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_home_dia"
+                android:id="@+id/iv_home_dia_pendiente"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                android:adjustViewBounds="false"
+                android:scaleType="centerInside"
+                android:translationX="10dp"
+                android:translationY="10dp"
+                app:srcCompat="@drawable/fui_idp_button_background_email" />
+
+            <ImageView
+                android:id="@+id/iv_home_dia_solicitado"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="30dp"
                 android:adjustViewBounds="false"
                 android:scaleType="centerCrop"
                 android:translationX="10dp"
                 android:translationY="10dp"
-                app:srcCompat="@drawable/fui_idp_button_background_email" />
+                app:srcCompat="@drawable/fui_idp_button_background_facebook" />
         </LinearLayout>
 
         <LinearLayout

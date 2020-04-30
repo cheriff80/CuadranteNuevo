@@ -52,6 +52,8 @@ public class Activity_Dialogo extends AppCompatActivity implements View.OnClickL
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
 
+    private final String TAG = "Cuadrante";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +83,14 @@ public class Activity_Dialogo extends AppCompatActivity implements View.OnClickL
         //FireBase
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
 
         //OnClick boton solicitar
         bt_solicitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 solicitarDia();
             }
         });
@@ -144,11 +148,17 @@ public class Activity_Dialogo extends AppCompatActivity implements View.OnClickL
             dia = new DiaUsuario();
             dia.setFecha(et_activityDialogo_fechaIntro.getText().toString());
             dia.setMensage(et_activityDialogo_mensaje.getText().toString());
+            dia.setNumTelefonoAcepta(companiero.getNumTelefono());
+            dia.setNumTelefonoSolicita(user.getNumTelefono());
 
 
 
             //añadimos el día a la lista de días del compañero en programa
             companiero.pedir_dias(dia);
+
+
+            //añadimos el día a la lista de días del usuario
+            user.pedir_dias(dia, user);
 
 
             user.getListaCompas().remove(buscarCompanieroLista());
@@ -157,18 +167,48 @@ public class Activity_Dialogo extends AppCompatActivity implements View.OnClickL
 
 
             //añadimos el día en la base de datos
+            aniadirDiaCompiUsuario();
             aniadirDiaCompiFireBase(dia);
         }
 
 
     }
 
+    /**
+     * Inserta el día en la lista de días del Usuario Companiero en Firestore
+     */
+
+    private void aniadirDiaCompiUsuario(){
+
+        DocumentReference docRef = firebaseFirestore.collection("users")
+                .document(companiero.getId());
+
+        docRef.update("listaDias", dia).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                //log y toast
+                Log.d(TAG, "día usuario solicitado");
+                Toast.makeText(getApplicationContext(), "día solicitado", Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "error al solicitar el día");
+                Toast.makeText(getApplicationContext(), "No se puede solicitar día", Toast.LENGTH_LONG).show();
+                onBackPressed();
+            }
+        });
+
+
+    }
+
+    /**
+     * Inserta el día en la lista de días de la lista de companieros
+     * @param dia
+     */
+
     private void aniadirDiaCompiFireBase(DiaUsuario dia) {
-
-        final String TAG = "Cuadrante";
-
-        //inicio la conexión con la BBDD
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
         //buscarCompanieroLista();
 
@@ -186,6 +226,7 @@ public class Activity_Dialogo extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(getBaseContext(),Pagina_principal.class);
                 intent.putExtra("usuario",user);
                 startActivity(intent);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -197,6 +238,11 @@ public class Activity_Dialogo extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
+    /**
+     * Devuelve el índice del companiero en la lista de companieros
+     * @return
+     */
 
     private int buscarCompanieroLista() {
 

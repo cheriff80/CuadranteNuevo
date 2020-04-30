@@ -8,20 +8,20 @@ public class Companiero extends Usuario implements Serializable {
 
 
     private int sumatorio_dias;
+    private String id;
     private List<DiaUsuario> listaDias;
 
     public Companiero(String alias, String apellidos, String id, String nombre, String numTelefono) {
         super(alias, apellidos, id, nombre, numTelefono);
         super.setListaCompas(null);
         listaDias = new ArrayList<>();
-
         sumatorio_dias = 0;
 
     }
 
-    public Companiero(){
+    public Companiero() {
         sumatorio_dias = 0;
-        listaDias = new ArrayList<>();
+
     }
 
     public List<DiaUsuario> getListaDias() {
