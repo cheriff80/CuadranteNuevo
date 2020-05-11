@@ -37,6 +37,9 @@
 
     <string name="fecha">Fecha:</string>
     <string name="comentario">Comentario:</string>
+    <string name="motivo">Motivo</string>
+    <string name="Aceptar">ACEPTAR</string>
+    <string name="rechazar">Rechazar</string>
 
 
 </resources>

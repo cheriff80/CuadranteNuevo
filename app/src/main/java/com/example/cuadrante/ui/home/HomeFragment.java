@@ -1,6 +1,7 @@
 package com.example.cuadrante.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cuadrante.R;
+import com.example.cuadrante.fragmentos.DiasUsuarioLista;
 
 import java.util.List;
 
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Companiero> listaCompis;
     private AdaptadorCompis adaptadorCompis;
+    private AdaptadorCompis.CompisViewHolder viewHolder;
 
 
 
@@ -78,6 +81,15 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onBindViewHolder(@NonNull CompisViewHolder holder, int position) {
 
+                        holder.getLinearLayout().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(getContext(), DiasUsuarioLista.class);
+                                intent.putExtra("usuario", usuario);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 };
 
@@ -86,6 +98,9 @@ public class HomeFragment extends Fragment {
                         LinearLayoutManager.VERTICAL,false));
             }
         }
+
+
+
 
     }
 

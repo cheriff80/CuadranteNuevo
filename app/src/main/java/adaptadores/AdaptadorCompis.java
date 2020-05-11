@@ -41,6 +41,7 @@ public abstract   class AdaptadorCompis extends RecyclerView.Adapter<AdaptadorCo
         private UserViewModel userViewModel;
         private Usuario user;
 
+
         public CompisViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -55,15 +56,22 @@ public abstract   class AdaptadorCompis extends RecyclerView.Adapter<AdaptadorCo
             //linear
             linearLayout = itemView.findViewById(R.id.linear_home_foto);
 
+
+
             //obtener el userViewModel
             userViewModel = ViewModelProviders.of((FragmentActivity) itemView.getContext()).get(UserViewModel.class);
             user = userViewModel.getUser();
 
-
-
-
             tv_dias = itemView.findViewById(R.id.tvDias);
 
+        }
+
+        public LinearLayout getLinearLayout() {
+            return linearLayout;
+        }
+
+        public void setLinearLayout(LinearLayout linearLayout) {
+            this.linearLayout = linearLayout;
         }
 
         public void bindCompi(Companiero compi){

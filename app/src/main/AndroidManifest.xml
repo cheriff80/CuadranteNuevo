@@ -12,6 +12,7 @@
         <activity
             android:theme="@style/Theme.AppCompat.DayNight.Dialog"
             android:name=".Activity_Dialogo"></activity>
+        <activity android:name=".fragmentos.DiasUsuarioLista"/>
         <activity android:name=".Pantalla_inicio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
